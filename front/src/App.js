@@ -126,7 +126,7 @@ const List = () => {
     textDecoration: 'line-through'
   };
   return <div>
-    <table >
+    <table className = "table table-dark table-hover table-borderless">
       <thead>
         <tr>
           <td>ID</td>
@@ -140,16 +140,14 @@ const List = () => {
             <td>{todo.id}</td>
             <td>{todo.name}</td>
             <td><input type="checkbox" defaultChecked={todo.completed} onChange={(event) => onChange(event, todo)}></input></td>
-            <td><button onClick={() => onDelete(todo.id)}>Eliminar</button></td>
-            <td><button onClick={() => onEdit(todo)}>Editar</button></td>
+            <td><button className = "btn btn-outline-warning" onClick={() => onDelete(todo.id)}>Eliminar</button></td>
+            <td><button className = "btn btn-outline-warning" onClick={() => onEdit(todo)}>Editar</button></td>
           </tr>
         })}
       </tbody>
     </table>
   </div>
 }
-
-
 
 function reducer(state, action) {
   switch (action.type) {
