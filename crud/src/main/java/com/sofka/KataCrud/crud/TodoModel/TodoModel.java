@@ -5,6 +5,8 @@ import javax.persistence.*;
 
 @Getter @Setter
 @Entity
+@AllArgsConstructor
+@NoArgsConstructor
 @Table(name = "todo")
 public class TodoModel {
 
@@ -12,9 +14,7 @@ public class TodoModel {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(unique = true, nullable = false)
     private Long id;
-
     private String name;
-
     private boolean completed;
 
 }
