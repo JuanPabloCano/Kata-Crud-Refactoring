@@ -1,30 +1,39 @@
 package com.sofka.KataCrud.crud.TodoService;
 
 import com.sofka.KataCrud.crud.TodoModel.TodoModel;
+import com.sofka.KataCrud.crud.TodoRepository.TodoInterfaceServices;
 import com.sofka.KataCrud.crud.TodoRepository.TodoRepository;
+import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
+@AllArgsConstructor
 @Service
-public class TodoService {
+public class TodoService implements TodoInterfaceServices {
 
     @Autowired
     private TodoRepository repository;
 
-    public Iterable<TodoModel> list(){
-        return repository.findAll();
+
+    @Override
+    public List<TodoModel> list() {
+        return (List<TodoModel>) repository.findAll();
     }
 
-    public TodoModel save(TodoModel todoModel){
+    @Override
+    public TodoModel save(TodoModel todoModel) {
         return repository.save(todoModel);
     }
 
-    public void delete(Long id){
+    @Override
+    public void delete(Long id) {
         repository.delete(get(id));
     }
 
-    public TodoModel get(Long id){
-         return repository.findById(id).orElseThrow();
+    @Override
+    public TodoModel get(long id) {
+        return repository.findById(id).orElseThrow();
     }
-
 }
