@@ -1,9 +1,17 @@
 package com.sofka.KataCrud.crud.TodoController;
 
+import com.sofka.KataCrud.crud.Dto.TodoDto;
 import com.sofka.KataCrud.crud.TodoModel.TodoModel;
 import com.sofka.KataCrud.crud.TodoService.TodoService;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+import java.util.stream.Collectors;
+
 
 @RestController
 @CrossOrigin(origins = "http://localhost:3000")
@@ -12,14 +20,30 @@ public class TodoController {
     @Autowired
     private TodoService service;
 
+    @Autowired
+    private ModelMapper modelMapper;
+
+    // Método para mostrar toda la información usando el DTO y programación declarativa con Stream(), Lambda y
+    // Collect
     @GetMapping(value = "api/todos")
-    public Iterable<TodoModel> list(){
-        return service.list();
+    public List<TodoDto> getAlltodo(){
+        return service.list()
+                .stream()
+                .map(mapper -> modelMapper.map(mapper, TodoDto.class))
+                .collect(Collectors.toList());
     }
-    
+
     @PostMapping(value = "api/todo")
-    public TodoModel save(@RequestBody TodoModel todoModel){
-        return service.save(todoModel);
+    public ResponseEntity<TodoDto> save(@RequestBody TodoDto todoDto){
+
+        // Mapper Dto a entidad
+        TodoModel todoModel = modelMapper.map(todoDto, TodoModel.class);
+        TodoModel todo = service.save(todoModel);
+
+        // Mapper de entidad a Dto
+        TodoDto dto = modelMapper.map(todo, TodoDto.class);
+
+        return new ResponseEntity<TodoDto>(dto, HttpStatus.CREATED);
     }
 
     @PutMapping(value = "api/todo")
@@ -36,8 +60,12 @@ public class TodoController {
     }
 
     @GetMapping(value = "api/{id}/todo")
-    public TodoModel get(@PathVariable("id") Long id){
-        return service.get(id);
-    }
+    public ResponseEntity<TodoDto> get(@PathVariable("id") Long id){
+        TodoModel todoModel = service.get(id);
 
+        // Mapper de entidad a Dto
+        TodoDto todoDto = modelMapper.map(todoModel, TodoDto.class);
+
+        return ResponseEntity.ok().body(todoDto);
+    }
 }
