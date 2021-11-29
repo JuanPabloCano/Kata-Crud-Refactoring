@@ -25,6 +25,7 @@ public class TodoController {
 
     // Método para mostrar toda la información usando el DTO y programación declarativa con Stream(), Lambda y
     // Collect
+
     @GetMapping(value = "api/todos")
     public List<TodoDto> getAllTodo(){
         return service.list()
@@ -43,7 +44,7 @@ public class TodoController {
         // Mapper de entidad a Dto
         TodoDto dto = modelMapper.map(todo, TodoDto.class);
 
-        return new ResponseEntity<TodoDto>(dto, HttpStatus.CREATED);
+        return new ResponseEntity<>(dto, HttpStatus.CREATED);
     }
 
     @PutMapping(value = "api/todo")
