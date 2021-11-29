@@ -26,7 +26,7 @@ public class TodoController {
     // Método para mostrar toda la información usando el DTO y programación declarativa con Stream(), Lambda y
     // Collect
     @GetMapping(value = "api/todos")
-    public List<TodoDto> getAlltodo(){
+    public List<TodoDto> getAllTodo(){
         return service.list()
                 .stream()
                 .map(mapper -> modelMapper.map(mapper, TodoDto.class))

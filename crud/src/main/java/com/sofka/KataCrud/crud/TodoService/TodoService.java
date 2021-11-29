@@ -16,7 +16,6 @@ public class TodoService implements TodoInterfaceServices {
     @Autowired
     private TodoRepository repository;
 
-
     @Override
     public List<TodoModel> list() {
         return (List<TodoModel>) repository.findAll();
