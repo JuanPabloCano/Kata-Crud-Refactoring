@@ -1,4 +1,4 @@
-package com.sofka.KataCrud.crud.Main;
+package com.sofka.KataCrud.crud;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.boot.SpringApplication;

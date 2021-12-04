@@ -6,7 +6,10 @@ import java.util.List;
 
 public interface TodoInterfaceServices {
     List<TodoModel> list();
+
     TodoModel save(TodoModel todoModel);
+
     void delete(Long id);
+
     TodoModel get(long id);
 }
